@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row justify-content-center align-content-center h100">
             <!-- Formulario de Recuperacion Contraseña -->
-            <div class="col-4 bg-green-trans">
+            <div class="col-11 col-md-4 bg-green-trans">
                 <div class="mt-3">
                     <h3 class="text-white text-uppercase text-center pb-3">Recuperar contraseña</h3>
                     <form  method="post" action="php/restorepass.php" class="m-3">

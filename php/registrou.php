@@ -17,19 +17,21 @@ require_once "./../php/connect.php";
     <link rel="shortcut icon" type="image/x-icon" href="../img/icons/logo-icon.ico">
 </head>
 
-<body class="bg-img">
+<body class="bg-img py-5">
     <div class="container">
-        <div class="row justify-content-between align-content-center h100">
-            <div class="col-4 text-white d-flex flex-column justify-content-center">
-                <h1 class="text-white text-shadow-logo">CCIMA IT</h1>
-                <hr class="border border-white">
-                <span class="fs-5"> Estas listo para Empezar</span>
-                <div class="mt-5">
-                    <p class="fs-5 text-start">para Agendar el Mantenimiento de tu Equipo, solo necesitas seleccionar la fecha en que te gustaria.</p>
-                    <a class="btn btn-primary bg-trasparent text-shadow mt-3 px-5 fw-bold d-none" href="../calendariousu/index.php">Soporte Tecnico</a>
+        <div class="row justify-content-between  align-content-center h100">
+            <div class="col-12 col-md-4 d-none d-md-flex">
+                <div class="text-white d-flex flex-column justify-content-center">
+                    <h1 class="text-white text-shadow-logo">CCIMA IT</h1>
+                    <hr class="border border-white">
+                    <span class="fs-5"> Estas listo para Empezar</span>
+                    <div class="mt-5">
+                        <p class="fs-5 text-start">para Agendar el Mantenimiento de tu Equipo, solo necesitas seleccionar la fecha en que te gustaria.</p>
+                        <a class="btn btn-primary bg-trasparent text-shadow mt-3 px-5 fw-bold d-none" href="../calendariousu/index.php">Soporte Tecnico</a>
+                    </div>
                 </div>
             </div>
-            <div class="col-4 bg-gassdoor">
+            <div class="col-12 col-md-4 bg-gassdoor ">
                 <div class="mt-3">
                     <h3 class="text-white text-uppercase text-center pb-3">Registrar</h3>
                     <!-- Formulario de Registro -->
