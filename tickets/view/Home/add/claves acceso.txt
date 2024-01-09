@@ -1,0 +1,14 @@
+aws
+link: https://aws.amazon.com/es/
+usuario: sistemas.ti@grupoccima.com
+contraseña: Alre061289@
+
+neubox 
+link: https://clientes.neubox.com
+usuario: sistemas.ti@grupoccima.com
+contraseña: biUv5xAMrh%S@rUY
+
+manychat 
+link: https://manychat.com/
+Usuario: 4461393826 
+Contraseña: Tecnología89

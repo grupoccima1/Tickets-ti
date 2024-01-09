@@ -1,0 +1,22 @@
+.bg-pri {
+    background-color: #07282C;
+  }
+
+  .mt-100px {
+    margin-top: 100px
+  }
+  .fc-row .fc-bg .fc-past
+  {
+    background-color: #D9D9D9;
+    color: white;
+  }
+  .fc-row .fc-bg .fc-today
+  {
+    background-color: #46B2BF;
+    color: white ;
+  }
+  .fc-row .fc-bg .fc-future:hover
+  {
+    background-color: #46B2BF;
+    cursor: pointer;
+  }

@@ -1,0 +1,9 @@
+    $insert = "INSERT INTO facturas(fecha_registro, ruta, id_usuario,monto) VALUES (NOW(),'$archivo','$mostrar[0]','$monto')";
+    $result = mysqli_query($con,$insert);
+    $tipoArchivo = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+    if (move_uploaded_file($_FILES["file"]["tmp_name"], $archivo) && $result) {
+        header('Location: sub.php');
+    } else {
+        echo "La accion fallo satisfactoriamente!";
+    }
+    
