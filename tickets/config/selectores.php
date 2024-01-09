@@ -11,7 +11,7 @@ include('./connect.php');
 
         $selectinven1="select count(*) from tickets where estado='vencido' AND estatus ='activo'";
         $result1=mysqli_query($conexion,$selectinven1);
-        $vencido=mysqli_fetch_row($result1);
+        $mostrar1=mysqli_fetch_row($result1);
 
         $selectinven2="select count(*) from tickets where estado='vence hoy' AND estatus ='activo'";
         $result2=mysqli_query($conexion,$selectinven2);

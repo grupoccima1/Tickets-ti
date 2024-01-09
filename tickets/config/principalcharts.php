@@ -110,7 +110,7 @@ include('selectores.php');
           ?>
         </section>
       </div>
-      <div class="col-4">
+      <div class="col-4 d-none">
         <!-- Lista de Tickets que vence hoy-->
       <h3 class="text-center mb-3">Vence Hoy</h3>
     <?php  if (mysqli_num_rows($r_vencenHoy) > 0) {
