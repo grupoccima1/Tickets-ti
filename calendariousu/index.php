@@ -113,48 +113,123 @@ $mostrar=mysqli_fetch_row($query);
   </div>
 
 
-  <script>
- $(document).ready(function () {
+User
+<script>
+$(document).ready(function () {
   $('#calendarioweb').fullCalendar({
     header: {
-      left: 'today,prev,next,Miboton',
+      left: 'today, prev, next, Miboton',
       center: 'title',
-      right: 'month,dayGridMonth,agendaWeek,agendaDay'
+      right: 'month, dayGridMonth, agendaWeek, agendaDay'
     },
     hiddenDays: [6, 0],
     businessHours: {
-      dow: [1, 2, 3, 4, 5], // Monday - Thursday
-      start: '10:00',
-      end: '18:00',
+      dow: [1, 2, 3, 4, 5], // Lunes a Jueves
+      start: '10:00', // 10am
+      end: '18:00', // 6pm
     },
     dayClick: function (date, jsEvent, view) {
-      // Verificar si la fecha seleccionada es la fecha actual o el d¨ªa siguiente
+      var selectedDate = date.format();
+
+      // Verificar si la fecha seleccionada es anterior a la fecha actual
       var fechaActual = moment().startOf('day');
       var fechaSeleccionada = moment(date);
 
-      if (fechaSeleccionada.isSameOrAfter(fechaActual, 'day') && fechaSeleccionada.isBefore(fechaActual.clone().add(2, 'days'), 'day')) {
-        return; // No hacer nada si es el d¨ªa actual o el siguiente
+      if (fechaSeleccionada.isBefore(fechaActual, 'day')) {
+        return; // No hacer nada si la fecha es anterior a la actual
       }
 
-      $('#txtFecha').val(date.format());
-      $("#modalEventos").modal();
+      $.ajax({
+        url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
+        type: 'GET',
+        data: { accion: 'verificar_disponibilidad', start: selectedDate },
+        dataType: 'json',
+        success: function (response) {
+          var cantidadEventos = response.cantidadEventos;
+
+          if (cantidadEventos < 2) {
+            $('#txtFecha').val(selectedDate);
+            $("#modalEventos").modal();
+          } else {
+            // Cambiar el mensaje con caracteres acentuados
+           alert('Este d\u00EDa ya alcanz\u00F3 su l\u00EDmite de mantenimientos. Por favor, selecciona otra fecha para agendar tu servicio.');
+
+          }
+        },
+        error: function () {
+          // Cambiar el mensaje con caracteres acentuados
+          alert('Error al verificar la disponibilidad. Por favor, intÃ©ntalo nuevamente.');
+        }
+      });
     },
-    eventLimit: true,
+    selectAllow: function (selectInfo) {
+      var selectedDate = selectInfo.start.format();
+
+      var isAllow = true;
+
+      // Verificar si la fecha seleccionada es anterior a la fecha actual
+      var fechaActual = moment().startOf('day');
+      var fechaSeleccionada = moment(selectInfo.start);
+
+      if (fechaSeleccionada.isBefore(fechaActual, 'day')) {
+        return false; // No permitir la selecciÃ³n si la fecha es anterior a la actual
+      }
+
+      $.ajax({
+        url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
+        type: 'GET',
+        data: { accion: 'verificar_disponibilidad', start: selectedDate },
+        dataType: 'json',
+        async: false,
+        success: function (response) {
+          var cantidadEventos = response.cantidadEventos;
+
+          // Permitir la selecciÃ³n si hay menos de 2 eventos
+          isAllow = cantidadEventos < 2;
+        },
+        error: function () {
+          // Cambiar el mensaje con caracteres acentuados
+          alert('Error al verificar la disponibilidad. Por favor, intÃ©ntalo nuevamente.');
+        }
+      });
+
+      return isAllow || selectInfo.start.hasTime() || selectInfo.end.hasTime();
+    },
+    dayRender: function (date, cell) {
+      var fechaCell = moment(date);
+
+      // Verificar si la fecha tiene dos eventos
+      $.ajax({
+        url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
+        type: 'GET',
+        data: { accion: 'verificar_disponibilidad', start: fechaCell.format('YYYY-MM-DD') },
+        dataType: 'json',
+        success: function (response) {
+          var cantidadEventos = response.cantidadEventos;
+
+          // Desactivar visualmente los dÃ­as con dos eventos
+          if (cantidadEventos >= 2) {
+            cell.addClass('fc-disabled-day');
+          }
+        },
+        error: function () {
+          // Cambiar el mensaje con caracteres acentuados
+          alert('Error al verificar la disponibilidad. Por favor, intÃ©ntalo nuevamente.');
+        }
+      });
+    },
     views: {
       agenda: {
-        eventLimit: 4
+        eventLimit: 4 // Ajustar a 6 solo para agendaWeek/agendaDay
       }
     },
     events: 'https://ti.grupoccima.com/calendariousu/eventos.php',
     eventClick: function (calEvent, jsEvent, view) {
-      //mostrar titulo en h5 
       $('#tituloEvento').html(calEvent.title);
-      //mostrar la informacion en los input 
       $('#txtDescripcion').val(calEvent.descripcion);
       $('#txtId').val(calEvent.id);
       $('#txtTitulo').val(calEvent.title);
       $('#txtColor').val(calEvent.color);
-      $('#txtArea').val(calEvent.depto);
       $('#txtArea').val(calEvent.depto);
 
       FechaHora = calEvent.start._i.split(" ");
@@ -162,22 +237,11 @@ $mostrar=mysqli_fetch_row($query);
       $('#txtHora').val(FechaHora[1]);
 
       $("#modalEventos").modal();
-    },
-    dayRender: function (date, cell) {
-      // Desactivar el d¨ªa actual y el siguiente visualmente
-      var fechaActual = moment().startOf('day');
-      var fechaCell = moment(date);
-
-      if (fechaCell.isSameOrAfter(fechaActual, 'day') && fechaCell.isBefore(fechaActual.clone().add(2, 'days'), 'day')) {
-        cell.addClass('fc-disabled-day');
-      }
     }
   });
 });
 
 </script>
-
-
 
 
   <!-- Modal (agregar,modificar,eliminar) -->
@@ -321,7 +385,7 @@ $mostrar=mysqli_fetch_row($query);
         },
         error:function(xhr, status, error){
    console.log(xhr.responseText);
-   alert("OcurriÃ³ un error: " + error);
+   alert("Ocurriè´¸ un error: " + error);
 }
       });
     }
@@ -344,7 +408,7 @@ $mostrar=mysqli_fetch_row($query);
     document.addEventListener('mousemove', resetInactivityTimer);
     document.addEventListener('keydown', resetInactivityTimer);
 
-    // Iniciar el temporizador de inactividad al cargar la p¨¢gina
+    // Iniciar el temporizador de inactividad al cargar la pÃ¡gina
     var inactivityTimer = setTimeout(redirectLogout, inactivityPeriod * 1000);
   </script>
 
