@@ -44,11 +44,12 @@ switch($usuario){
                                 <option value="Jimena Alarcon">Jimena Alarcón</option>
                                 <option value="Yaressi Rodriguez">Yaressi Rodriguez</option>
                                 <option value="Jose Renovato">Jose Renovato</option>
-                                <option value="Isai Garcia">Isai Garcia</option>
+                                <option value="Isai Garcia">Isai  Garc&#237;a</option>
                                 <option value="Diego Dominguez">Diego Dominguez</option>
                                 <option value="Juan Pablo Barcenas">Juan Pablo Barcenas</option>
                                 <option value="Jackelin Yañez">Jackelin Yañez</option>
-                                <option value="Hector Miguel">Miguel Ornelas</option>
+                                <option value="Miguel Ornelas">Miguel Ornelas</option>
+                                <option value="Jesus Garcia">Jes&#250;s Garc&#237;a</option>
                                 
                             </select>
                         </div>
