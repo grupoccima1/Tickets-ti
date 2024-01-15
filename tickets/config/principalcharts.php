@@ -20,7 +20,7 @@ include('selectores.php');
     <div class="row mt-4 ">
       
       <!-- inidicadores -->
-      <div class="col-3 ">
+      <div class="col-12 col-md-3">
         <div class="row p-1 m-1 border bg-gray">
           <div class="col-3 py-3">
             <img src="../../public/img/icons/green/tools-solid.svg" alt="">
@@ -33,7 +33,7 @@ include('selectores.php');
         </div>
       </div>
 <!-- inidicadores -->
-      <div class="col-3 ">
+      <div class="col-12 col-md-3 ">
         <div class="row p-1 m-1 border bg-base">
           <div class="col-3 py-3">
             <img src="../../public/img/icons/white/trophy-solid.svg" alt="">
@@ -46,7 +46,7 @@ include('selectores.php');
         </div>
       </div>
       <!-- inidicadores -->
-      <div class="col-3 ">
+      <div class="col-12 col-md-3 ">
         <div class="row p-1 m-1 border bg-gray">
           <div class="col-3 py-3">
             <img src="../../public/img/icons/green/skull-solid.svg" alt="">
@@ -59,7 +59,7 @@ include('selectores.php');
         </div>
       </div>
       <!-- inidicadores -->
-      <div class="col-3 ">
+      <div class="col-12 col-md-3 ">
         <div class="row  p-1 m-1 border bg-base">
           <div class="col-3 py-3">
             <img src="../../public/img/icons/white/skull_danger.svg" alt="">
@@ -72,7 +72,19 @@ include('selectores.php');
         </div>
       </div>
       <!-- inidicadores -->
-      <div class="col-3 ">
+      <div class="col-12 col-md-3 order-md-6">
+        <div class="row p-1 m-1 border bg-gray">
+          <div class="col-3 py-3">
+            <img src="../../public/img/icons/green/chart-area-solid.svg" alt="">
+          </div>
+          <div class="col-9">
+            <h5>Cerrados</h5>
+            <!-- Cerrados -->
+            <h3 class="text-end"><?php echo $mostrar5[0]; ?></h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 order-md-5">
         <div class="row p-1 m-1 border bg-base">
           <div class="col-3 py-3">
             <img src="../../public/img/icons/white/chart-pie-solid.svg" alt="">
@@ -85,23 +97,12 @@ include('selectores.php');
         </div>
       </div>
       <!-- inidicadores -->
-      <div class="col-3">
-        <div class="row p-1 m-1 border bg-gray">
-          <div class="col-3 py-3">
-            <img src="../../public/img/icons/green/chart-area-solid.svg" alt="">
-          </div>
-          <div class="col-9">
-            <h5>Cerrados</h5>
-            <!-- Cerrados -->
-            <h3 class="text-end"><?php echo $mostrar5[0]; ?></h3>
-          </div>
-        </div>
-      </div>
+      
       
     </div>
 
     <div class="row mt-5">
-      <div class="col-8">
+      <div class="col-12 col-md-8">
         <h3 class="text-center mb-3">Indicadores Claves</h3>
         <!-- Contenedor de Grafica -->
         <section class="div1">
