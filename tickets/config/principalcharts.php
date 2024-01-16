@@ -32,7 +32,7 @@ include('selectores.php');
           </div>
         </div>
       </div>
-<!-- inidicadores -->
+      <!-- inidicadores -->
       <div class="col-12 col-md-3 ">
         <div class="row p-1 m-1 border bg-base">
           <div class="col-3 py-3">

@@ -155,6 +155,10 @@ $mostrar=mysqli_fetch_row($query);
           <img class="w100 px-5 pt-5" src="img/content/Velocidad.png" alt="">
           <h3 class="text-white text-center my-3">Infraestructura</h3>
         </div>
+        <div class="col-12 col-md-2 service">
+          <img class="w100 px-5" src="img/content/innovacion_2.png" alt="" style="padding-top:2.5rem">
+          <h3 class="text-white text-center my-3">Innovacion</h3>
+        </div>
       </div>
     </div>
   </section>
