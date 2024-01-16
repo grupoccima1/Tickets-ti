@@ -17,18 +17,16 @@ require_once "./../php/connect.php";
     <link rel="shortcut icon" type="image/x-icon" href="../img/icons/logo-icon.ico">
 </head>
 
-<body class="bg-img py-5">
+<body class="bg-img">
     <div class="container">
-        <div class="row justify-content-between  align-content-center h100">
+        <div class="row justify-content-between align-content-center h100">
             <div class="col-12 col-md-4 d-none d-md-flex">
-                <div class="text-white d-flex flex-column justify-content-center">
-                    <h1 class="text-white text-shadow-logo">CCIMA IT</h1>
-                    <hr class="border border-white">
-                    <span class="fs-5"> Estas listo para Empezar</span>
-                    <div class="mt-5">
-                        <p class="fs-5 text-start">para Agendar el Mantenimiento de tu Equipo, solo necesitas seleccionar la fecha en que te gustaria.</p>
-                        <a class="btn btn-primary bg-trasparent text-shadow mt-3 px-5 fw-bold d-none" href="../calendariousu/index.php">Soporte Tecnico</a>
-                    </div>
+                <h1 class="text-white text-shadow-logo">CCIMA IT</h1>
+                <hr class="border border-white">
+                <span class="fs-5"> Estas listo para Empezar</span>
+                <div class="mt-5">
+                    <p class="fs-5 text-start">para Agendar el Mantenimiento de tu Equipo, solo necesitas seleccionar la fecha en que te gustaria.</p>
+                    <a class="btn btn-primary bg-trasparent text-shadow mt-3 px-5 fw-bold d-none" href="../calendariousu/index.php">Soporte Tecnico</a>
                 </div>
             </div>
             <div class="col-12 col-md-4 bg-gassdoor ">
@@ -43,29 +41,75 @@ require_once "./../php/connect.php";
                         <div class="mb-3 mt-3">
                             <label for="usuario" class="text-white form-label">Usuario:</label>
                             <input class="form-control" id="usuario" name="usuario" placeholder="Usuario" required>
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="telefono" class="text-white form-label">Tel&eacute;fono:</label>
-                            <input class="form-control" type="tel" id="telefono" name="telefono" placeholder="Tel&eacute;fono:"  required>
-                            <div class="invalid-feedback">
-                                Por favor, ingresa un n&uacute;mero de tel&eacute;fono v&aacute;lido.
-                            </div>
-                        </div>
+                       <div class="mb-3 mt-3">
+    <label for="telefono" class="text-white form-label">Tel&eacute;fono:</label>
+    <input class="form-control" type="tel" id="telefono" name="telefono" placeholder="Tel&eacute;fono:" oninput="validarTelefono(this)" required>
+    <div class="invalid-feedback">
+        Por favor, ingresa un n&uacute;mero de tel&eacute;fono v&aacute;lido con 10 d&iacute;gitos.
+    </div>
+</div>
+
+<script>
+    function validarTelefono(input) {
+        // Elimina cualquier caracter que no sea un número
+        input.value = input.value.replace(/\D/g, '');
+
+        // Limita la longitud del número de teléfono a 10 dígitos
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10); // Recorta a 10 dígitos si es más largo
+        }
+
+        // Actualiza la validez del formulario
+        input.setCustomValidity("");
+        if (input.value.length !== 10) {
+            input.setCustomValidity("Por favor, ingresa exactamente 10 dígitos.");
+        }
+    }
+</script>
+
                         <div class="mb-3 mt-3">
                             <label for="correo" class="text-white form-label">Correo:</label>
                             <input class="form-control" type="text"  id="correo" name="correo" placeholder="Correo" required>
                         </div>
+<?php
+// Mapeo de áreas con correcciones ortográficas en ASCII
+$correccionesOrtograficas = array(
+    "comercializacion" => "Comercializaci&oacute;n",
+    "juridico" => "Jur&iacute;dico",
+    "admon compras" => "Admon compras",
+    "admon navetec" => "Admon navetec",
+    "admon habitta" => "Admon habitta",
+    "proyectos" => "Proyectos",
+    "construccion" => "Construcci&oacute;n",
+    "rentas" => "Rentas",
+    "recursos humanos" => "Recursos humanos",
+    "nuevos negocios" => "Nuevos negocios"
+);
 
-                        <div class="mb-3 mt-3">
-                            <label for="area" class="text-white form-label">Area:</label>
-                            <select  class="form-control" id="area" name="area">
-                                <?php $sel="SELECT * FROM area WHERE 1";
-                                            $res=mysqli_query($conexion,$sel);
-                                            while($mos=mysqli_fetch_row($res)){?>
-                                <option class="text-uppercase" value="<?php echo $mos[1]; ?>"> <?php echo $mos[1]; ?> </option>
-                                <?php } ?>
-                            </select>
-                        </div>
+$sel = "SELECT * FROM area WHERE 1";
+$res = mysqli_query($conexion, $sel);
+?>
+
+<div class="mb-3 mt-3">
+    <label for="area" class="text-white form-label">Area:</label>
+    <select class="form-control" id="area" name="area">
+        <?php 
+        while ($mos = mysqli_fetch_row($res)) {
+            $nombreArea = $mos[1];
+
+            // Verificar si hay una corrección ortográfica para esta área
+            if (isset($correccionesOrtograficas[$nombreArea])) {
+                $nombreCorregido = $correccionesOrtograficas[$nombreArea];
+            } else {
+                $nombreCorregido = $nombreArea;
+            }
+            ?>
+            <option value="<?php echo $nombreArea; ?>"> <?php echo $nombreCorregido; ?> </option>
+        <?php } ?>
+    </select>
+</div>
+
+
 
                         <div class="mb-3">
                             <label for="pass" class="text-white form-label">Contrase&ntilde;a:</label>
@@ -84,7 +128,7 @@ require_once "./../php/connect.php";
                         <div class="d-flex justify-content-between pt-5">
                             <!-- Redireccionamiento  -->
                             <a href="../rpassword.php" class="text-white text-decoration-none">Recuperar
-                                Contraseña</a>
+                                Contrase単a</a>
                             <a href="../index.php" class="text-white text-decoration-none">Login </a>
                         </div>
                     </form>
