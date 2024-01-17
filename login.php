@@ -143,20 +143,20 @@ $mostrar=mysqli_fetch_row($query);
         </div>
       </div>
       <div class="row justify-content-evenly ">
-        <div class="col-12 col-md-2 service">
-          <img class="w100 px-5 pt-5" src="img/content/seguridad.png" alt="">
+        <div class="col-12 col-md-4 col-lg-2 service">
+          <img class="w100" src="img/content/seguridad.png" alt="">
           <h3 class="text-white text-center my-3"> Soporte</h3>
         </div>
-        <div class="col-12 col-md-2 service">
-          <img class="w100 px-5 pt-5" src="img/content/servidor.png" alt="">
+        <div class="col-12 col-md-4 col-lg-2 service">
+          <img class="w100" src="img/content/servidor.png" alt="">
           <h3 class="text-white text-center my-3"> Desarollo</h3>
         </div>
-        <div class="col-12 col-md-2 service">
-          <img class="w100 px-5 pt-5" src="img/content/Velocidad.png" alt="">
+        <div class="col-12 col-md-4 col-lg-2 service">
+          <img class="w100" src="img/content/Velocidad.png" alt="">
           <h3 class="text-white text-center my-3">Infraestructura</h3>
         </div>
-        <div class="col-12 col-md-2 service">
-          <img class="w100 px-5" src="img/content/innovacion_2.png" alt="" style="padding-top:2.5rem">
+        <div class="col-12 col-md-4 col-lg-2 service">
+          <img id="icon_inovacion" class="w100" src="img/content/innovacion_2.png" alt="">
           <h3 class="text-white text-center my-3">Innovacion</h3>
         </div>
       </div>
