@@ -6,7 +6,7 @@
 
             protected function Conexion(){
                 try{
-                    $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=grupoccimacom_ti1", "grupoccimacom_master","Gccima22.");
+                    $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=grupoccimacom_tickets", "grupoccimacom_master","Gccima22.");
                     // $conexion=mysqli_connect('localhost','grupoccimacom_master','Gccima22.','grupoccimacom_ti1');
                     return $conectar;
                 } catch (Exception $e) {
