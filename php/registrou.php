@@ -20,16 +20,16 @@ require_once "./../php/connect.php";
 <body class="bg-img">
     <div class="container">
         <div class="row justify-content-between align-content-center h100">
-            <div class="col-12 col-md-4 d-none d-md-flex">
+            <div class="col-12 col-md-5 col-lg-5 col-xl-4 d-none d-md-flex flex-column justify-content-center">
                 <h1 class="text-white text-shadow-logo">CCIMA IT</h1>
                 <hr class="border border-white">
-                <span class="fs-5"> Estas listo para Empezar</span>
+                <span class="fs-5 text-white"> Estas listo para Empezar</span>
                 <div class="mt-5">
-                    <p class="fs-5 text-start">para Agendar el Mantenimiento de tu Equipo, solo necesitas seleccionar la fecha en que te gustaria.</p>
+                    <p class="fs-5 text-start text-white">para Agendar el Mantenimiento de tu Equipo, solo necesitas seleccionar la fecha en que te gustaria.</p>
                     <a class="btn btn-primary bg-trasparent text-shadow mt-3 px-5 fw-bold d-none" href="../calendariousu/index.php">Soporte Tecnico</a>
                 </div>
             </div>
-            <div class="col-12 col-md-4 bg-gassdoor ">
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4 bg-gassdoor ">
                 <div class="mt-3">
                     <h3 class="text-white text-uppercase text-center pb-3">Registrar</h3>
                     <!-- Formulario de Registro -->
@@ -128,7 +128,7 @@ $res = mysqli_query($conexion, $sel);
                         <div class="d-flex justify-content-between pt-5">
                             <!-- Redireccionamiento  -->
                             <a href="../rpassword.php" class="text-white text-decoration-none">Recuperar
-                                Contrase単a</a>
+                                Contraseña</a>
                             <a href="../index.php" class="text-white text-decoration-none">Login </a>
                         </div>
                     </form>

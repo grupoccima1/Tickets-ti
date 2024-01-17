@@ -75,10 +75,10 @@ $mostrar=mysqli_fetch_row($query);
       <div class="row justify-content-between align-content-center h100">
         <div class="col-12 col-md-5 text-white pt-5 pt-md-0">
           <!-- contenedor -->
-          <h1 class="text-white fs-2">Resolvemos tus problemas de Informática. </h1>
+          <h1 class="text-white fs-2 pt-3 pt-md-0">Resolvemos tus problemas de Informática. </h1>
           <hr class="border border-white">
           <span class="fs-5"> Estás listo para empezar</span>
-          <div class="mt-5">
+          <div class="mt-3 mt-md-5">
             <p class="fs-5 text-start">Después de levantar el ticket, un auxiliar especializado se pondrá en contacto
               con el cliente para la resolución del problema.</p>
             <div class="d-flex flex-column">
