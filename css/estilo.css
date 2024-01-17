@@ -120,6 +120,13 @@
 .service:hover{
     background: linear-gradient(0deg, rgba(49,120,129,1) 0%, rgba(255,255,255,0) 54%, rgba(255,255,255,0) 100%);
 }
+.service img{
+    padding: 3rem 2rem 0rem 2rem;
+}
+
+.service #icon_inovacion{
+    padding: 2.5rem 2rem 0rem 2rem;
+}
 .footer{
     text-align: center;
     position: absolute;
