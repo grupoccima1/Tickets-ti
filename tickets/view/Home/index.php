@@ -10,7 +10,7 @@ require_once("../../config/conexion.php");
 $usuario = $_SESSION['username'];
 require_once './../../../php/connect.php';
 
-// Verificar si la sesi«Ñn est«¡ inactiva durante m«¡s de 1 minuto
+// Verificar si la sesiï¿½ï¿½ï¿½n estï¿½ï¿½ï¿½ inactiva durante mï¿½ï¿½ï¿½s de 1 minuto
 $inactivity_period = 300; // 1 minuto
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $inactivity_period)) {
     session_unset();
@@ -50,6 +50,7 @@ switch ($mostrar[1]) {
             <div class="mobile-menu-left-overlay"></div>
             <?php
             require_once("../MainNav/nav.php");
+            require_once("../MainJs/js.php");
             ?>
             <div class="page-content">
                 <div class="container-fluid">
@@ -60,7 +61,7 @@ switch ($mostrar[1]) {
             </div>
 
             <script>
-                // Cerrar sesi«Ñn despu«±s de 1 minuto de inactividad
+                // Cerrar sesiï¿½ï¿½ï¿½n despuï¿½ï¿½ï¿½s de 1 minuto de inactividad
                 setTimeout(function() {
                     window.location.href = 'https://ti.grupoccima.com/index.php';
                 }, <?php echo $inactivity_period * 1000; ?>);
@@ -84,7 +85,7 @@ switch ($mostrar[1]) {
             </div>
 
             <script>
-                // Cerrar sesi«Ñn despu«±s de 1 minuto de inactividad
+                // Cerrar sesiï¿½ï¿½ï¿½n despuï¿½ï¿½ï¿½s de 1 minuto de inactividad
                 setTimeout(function() {
                     window.location.href = 'https://ti.grupoccima.com/index.php';
                 }, <?php echo $inactivity_period * 1000; ?>);
