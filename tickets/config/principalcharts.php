@@ -16,7 +16,7 @@ include('selectores.php');
 <div class="card-header bg-white">
     <h3 class="card-title">Dashboard</h3>
     <div class="d-block text-end d-md-none">
-      <a href="..\view\ConsultarTicket\" class="btn btn-primary" style="background-color:#07282C">
+      <a href="..\ConsultarTicket\" class="btn btn-primary" style="background-color:#07282C">
         Ver Tickets
       </a>
     </div>
