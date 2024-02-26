@@ -10,7 +10,7 @@ require_once("../../config/conexion.php");
 $usuario = $_SESSION['username'];
 require_once './../../../php/connect.php';
 
-// Verificar si la sesi«Ñn est«¡ inactiva durante m«¡s de 1 minuto
+
 $inactivity_period = 300; // 1 minuto
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $inactivity_period)) {
     session_unset();
@@ -36,12 +36,18 @@ $mostrar = mysqli_fetch_row($query);
 <?php
 
 switch ($mostrar[1]) {
-    case 'Yaressi Rodriguez':
-    case 'Jimena Alarcon':
-    case 'Jose Renovato':
-    case 'Juan Pablo':
-    case 'Jackelin YaÃ±ez':
-    case 'Isai Garcia':
+    case 'Diego Dominguez Zacapala':
+    case 'Brenda Jimena Alarcon Vargas':
+    case 'Jose Antonio Renovato Hiedra':
+    case 'Juan Pablo Barcenas Iturbe':
+    case 'Jackelin YaÃ±ez Hernandez':
+    case 'Isai Jeziel Garcia Hernandez':
+    case 'Yaressi Rodriguez Del Angel':
+    case 'Hector Miguel Ornelas Flores': 
+    case 'Jesus Miguel Garcia Ramirez': 
+        
+      
+       
 ?>
         <body class="with-side-menu">
             <?php
@@ -50,6 +56,9 @@ switch ($mostrar[1]) {
             <div class="mobile-menu-left-overlay"></div>
             <?php
             require_once("../MainNav/nav.php");
+            ?>
+            <?php
+            require_once("../MainJs/js.php");
             ?>
             <div class="page-content">
                 <div class="container-fluid">
@@ -60,7 +69,7 @@ switch ($mostrar[1]) {
             </div>
 
             <script>
-                // Cerrar sesi«Ñn despu«±s de 1 minuto de inactividad
+                // Cerrar sesiï¿½ï¿½ï¿½n despuï¿½ï¿½ï¿½s de 1 minuto de inactividad
                 setTimeout(function() {
                     window.location.href = 'https://ti.grupoccima.com/index.php';
                 }, <?php echo $inactivity_period * 1000; ?>);
@@ -84,7 +93,7 @@ switch ($mostrar[1]) {
             </div>
 
             <script>
-                // Cerrar sesi«Ñn despu«±s de 1 minuto de inactividad
+                // Cerrar sesiï¿½ï¿½ï¿½n despuï¿½ï¿½ï¿½s de 1 minuto de inactividad
                 setTimeout(function() {
                     window.location.href = 'https://ti.grupoccima.com/index.php';
                 }, <?php echo $inactivity_period * 1000; ?>);

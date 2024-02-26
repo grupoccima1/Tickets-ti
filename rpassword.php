@@ -46,8 +46,8 @@
                             <button type="submit" class="btn btn-primary bg-pri px-5">Enviar</button>
                         </div>
                         <div class="d-flex justify-content-between pt-5">
-                            <a href="./php/registrou.php" class="text-white text-decoration-none">Registrar </a>
-                            <a href="./index.php" class="text-white text-decoration-none">Login</a>
+                            <!--<a href="./php/registrou.php" class="text-white text-decoration-none">Registrar </a>-->
+                            <a href="https://ti.grupoccima.com/php/registrou.php" class="text-white text-decoration-none">Regresar</a>
                         </div>
                     </form>
                 </div>

@@ -1,14 +1,13 @@
-    <?php 
+<?php 
 session_start();
 require_once 'connect.php';
 $usuario = $_SESSION['username'];
-
-
 
 $categoria = $_POST['categoria'];
 $subcategoria = $_POST['subcat'];
 $descripcion = $_POST['descripcion'];
 $sucursal = $_POST['sucursal'];
+$telefono = $_POST['telefono'];
 
 $directorio = "add/";
 $archivo = '';
@@ -20,8 +19,20 @@ if (isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] == UPLOAD_ERR_OK) {
         // El archivo se ha subido correctamente.
     } else {
         echo "Hubo un error al subir el archivo.";
-        exit(); // Termina el script si hay un error al subir el archivo.
+        exit();
     }
+}
+
+// Actualizar el teléfono del usuario en la tabla de usuarios
+$updateUsuario = "UPDATE usuarios SET telefono = '$telefono' WHERE usuario = '$usuario'";
+$resultadoUpdate = mysqli_query($conexion, $updateUsuario);
+
+if (!$resultadoUpdate) {
+    // Manejar el error si la actualización falla
+    $errorUpdate = mysqli_error($conexion);
+    $_SESSION['mensaje'] = 'Error al actualizar el teléfono del usuario: ' . $errorUpdate;
+    header("Location: https://ti.grupoccima.com/tickets/view/Home/");
+    exit();
 }
 
 switch($categoria){
@@ -95,7 +106,7 @@ switch($subcategoria){
     case "responsiva":
     case "no envia":
     case "crear o eliminar":
-    case "cambio de contraseña":
+    case "cambio de contrase単a":
     case "eliminar":
     case "configuracion":
     case "no imprime":
@@ -123,7 +134,7 @@ switch($subcategoria){
     break;
     case "camaras de vgilancia en parques":
     case "automatizacion plumas":
-    case "diseño de proyecto en espesifico":
+    case "dise単o de proyecto en espesifico":
     case "automatizacion cortinas aluminio":
     case "cotizacion de producto espesifico":
     case "aplicacion para oculus":
@@ -156,31 +167,18 @@ $area=mysqli_fetch_row($resul);
 $estado = "abierto";
 $estatus = "activo";
 $insert = "INSERT INTO tickets (usuario,email,telefono,area,descripcion,url,agente,mesa,categoria,subcategoria,t_registro,estado,sucursal,f_cierre,estatus) 
-VALUES ('$usuario','$area[4]','$area[3]','$area[6]','$descripcion','$archivo','$agente','$mesa','$categoria','$subcategoria',NOW(),'$estado','$sucursal','$ffinal','$estatus')";
+VALUES ('$usuario','$area[4]','$telefono','$area[6]','$descripcion','$archivo','$agente','$mesa','$categoria','$subcategoria',NOW(),'$estado','$sucursal','$ffinal','$estatus')";
 
 $query = mysqli_query($conexion,$insert);
 
 $tipoArchivo = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
-if ( $query) {
-
+if ($query) {
      $_SESSION['mensaje'] = 'Se ha guardado correctamente';
-    header("https://ti.grupoccima.com/tickets/view/Home/index.php");
-    echo '
-    <script>
-        setTimeout(function() {
-            window.location.href = "https://ti.grupoccima.com/tickets/view/Home/index.php";
-        }, 500);
-    </script>';
+    header("Location: https://ti.grupoccima.com/tickets/view/Home/index.php");
+    exit();
 } else {
     $_SESSION['mensaje'] = 'Error en el registro de datos.'. mysqli_error($conexion);
-    header("https://ti.grupoccima.com/tickets/view/Home/");
+    header("Location: https://ti.grupoccima.com/tickets/view/Home/");
     exit();
-    echo '
-    <script>
-        setTimeout(function() {
-            window.location.href = "https://ti.grupoccima.com/tickets/view/Home/";
-        }, 500);
-    </script>';
-
 }
 ?>

@@ -18,8 +18,7 @@
             "start" =>$_POST['start'],
             "end" =>$_POST['end'],
             "area" =>$_POST['area'],
-            "end" =>$_POST['end'],
-            "area" =>$_POST['area']
+         
          ));
 
 
