@@ -14,7 +14,7 @@ header('Content-Type: application/json');
 $pdo = new PDO("mysql:host=localhost;dbname=bbbme11_sistema", "bbbme11_ti", "Gccima22.");
 
 // Obtener la fecha del POST
-$fecha = isset($_POST['start']) ? $_POST['start'] : null;
+$fecha = isset($_GET['start']) ? $_GET['start'] : null;
 
 // Verificar la cantidad de eventos para la fecha específica
 $cantidadEventos = obtenerCantidadEventos($fecha, $pdo);
@@ -80,7 +80,8 @@ switch ($accion) {
         break;
        case 'verificar_disponibilidad':
     // Obtener la fecha del POST
-    $fecha = isset($_GET['start']) ? $_GET['start'] : null;
+
+$fecha = isset($_GET['start']) ? $_GET['start'] : null;
 
     // Verificar la cantidad de eventos para la fecha específica
     $cantidadEventos = obtenerCantidadEventos($fecha, $pdo);

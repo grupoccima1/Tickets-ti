@@ -42,7 +42,6 @@ $mostrar=mysqli_fetch_row($query);
 
   <title>Agenda Cima</title>
 </head>
-
 <body>
   <style>
     .bg-pri {
@@ -73,7 +72,7 @@ $mostrar=mysqli_fetch_row($query);
               <a class="nav-link" href="../login.php#servicios">Servicios</a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link text-white dropdown-toggle text-capitalize" data-toggle="dropdown">
+                <a href="#" class="nav-link text-white dropdown-toggle user_id" data-toggle="dropdown">
                   <?php
                     if(!isset($usuario)){
                       header("location: login.php");
@@ -113,132 +112,78 @@ $mostrar=mysqli_fetch_row($query);
   </div>
 
 
-User
+
 <script>
-$(document).ready(function () {
-  $('#calendarioweb').fullCalendar({
-    header: {
-      left: 'today, prev, next, Miboton',
-      center: 'title',
-      right: 'month, dayGridMonth, agendaWeek, agendaDay'
-    },
-    hiddenDays: [6, 0],
-    businessHours: {
-      dow: [1, 2, 3, 4, 5], // Lunes a Jueves
-      start: '10:00', // 10am
-      end: '18:00', // 6pm
-    },
-    dayClick: function (date, jsEvent, view) {
-      var selectedDate = date.format();
+ $(document).ready(function () {
+  // Variable para almacenar los eventos
+  var eventos = [];
 
-      // Verificar si la fecha seleccionada es anterior a la fecha actual
-      var fechaActual = moment().startOf('day');
-      var fechaSeleccionada = moment(date);
+  // Cargar los eventos al inicio
+  cargarEventos();
 
-      if (fechaSeleccionada.isBefore(fechaActual, 'day')) {
-        return; // No hacer nada si la fecha es anterior a la actual
+  function cargarEventos() {
+    $.ajax({
+      url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        eventos = response;
+        inicializarCalendario();
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
       }
+    });
+  }
 
-      $.ajax({
-        url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
-        type: 'GET',
-        data: { accion: 'verificar_disponibilidad', start: selectedDate },
-        dataType: 'json',
-        success: function (response) {
-          var cantidadEventos = response.cantidadEventos;
+  function inicializarCalendario() {
+    $('#calendarioweb').fullCalendar({
+      header: {
+        left: 'today,prev,next,Miboton',
+        center: 'title',
+        right: 'month,dayGridMonth,agendaWeek,agendaDay'
+      },
+      hiddenDays: [6, 0],
+      events: eventos, // Utilizar la variable de eventos
+      dayClick: function (date, jsEvent, view) {
+        // Verificar disponibilidad antes de mostrar el modal
+        $.ajax({
+          url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
+          type: 'GET',
+          data: { start: date.format(), accion: 'verificar_disponibilidad' },
+          dataType: 'json',
+          success: function(response) {
+            if (response.cantidadEventos >= 2) {
+              alert('Ya hay dos eventos programados para este d\u00EDa. Por favor elige otro d\u00EDa.');
 
-          if (cantidadEventos < 2) {
-            $('#txtFecha').val(selectedDate);
-            $("#modalEventos").modal();
-          } else {
-            // Cambiar el mensaje con caracteres acentuados
-           alert('Este d\u00EDa ya alcanz\u00F3 su l\u00EDmite de mantenimientos. Por favor, selecciona otra fecha para agendar tu servicio.');
-
+            } else {
+              $('#txtFecha').val(date.format());
+              $("#modalEventos").modal();
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
           }
-        },
-        error: function () {
-          // Cambiar el mensaje con caracteres acentuados
-          alert('Error al verificar la disponibilidad. Por favor, inténtalo nuevamente.');
-        }
-      });
-    },
-    selectAllow: function (selectInfo) {
-      var selectedDate = selectInfo.start.format();
+        });
+      },
+      eventClick: function (calEvent, jsEvent, view) {
+        // mostrar titulo en h5
+        $('#tituloEvento').html(calEvent.title);
+        // mostrar la informacion en los input
+        $('#txtDescripcion').val(calEvent.descripcion);
+        $('#txtId').val(calEvent.id);
+        $('#txtTitulo').val(calEvent.title);
+        $('#txtColor').val(calEvent.color);
+        $('#txtArea').val(calEvent.depto);
 
-      var isAllow = true;
+        FechaHora = calEvent.start._i.split(" ");
+        $('#txtFecha').val(FechaHora[0]);
+        $('#txtHora').val(FechaHora[1]);
 
-      // Verificar si la fecha seleccionada es anterior a la fecha actual
-      var fechaActual = moment().startOf('day');
-      var fechaSeleccionada = moment(selectInfo.start);
-
-      if (fechaSeleccionada.isBefore(fechaActual, 'day')) {
-        return false; // No permitir la selección si la fecha es anterior a la actual
+        $("#modalEventos").modal();
       }
-
-      $.ajax({
-        url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
-        type: 'GET',
-        data: { accion: 'verificar_disponibilidad', start: selectedDate },
-        dataType: 'json',
-        async: false,
-        success: function (response) {
-          var cantidadEventos = response.cantidadEventos;
-
-          // Permitir la selección si hay menos de 2 eventos
-          isAllow = cantidadEventos < 2;
-        },
-        error: function () {
-          // Cambiar el mensaje con caracteres acentuados
-          alert('Error al verificar la disponibilidad. Por favor, inténtalo nuevamente.');
-        }
-      });
-
-      return isAllow || selectInfo.start.hasTime() || selectInfo.end.hasTime();
-    },
-    dayRender: function (date, cell) {
-      var fechaCell = moment(date);
-
-      // Verificar si la fecha tiene dos eventos
-      $.ajax({
-        url: 'https://ti.grupoccima.com/calendariousu/eventos.php',
-        type: 'GET',
-        data: { accion: 'verificar_disponibilidad', start: fechaCell.format('YYYY-MM-DD') },
-        dataType: 'json',
-        success: function (response) {
-          var cantidadEventos = response.cantidadEventos;
-
-          // Desactivar visualmente los días con dos eventos
-          if (cantidadEventos >= 2) {
-            cell.addClass('fc-disabled-day');
-          }
-        },
-        error: function () {
-          // Cambiar el mensaje con caracteres acentuados
-          alert('Error al verificar la disponibilidad. Por favor, inténtalo nuevamente.');
-        }
-      });
-    },
-    views: {
-      agenda: {
-        eventLimit: 4 // Ajustar a 6 solo para agendaWeek/agendaDay
-      }
-    },
-    events: 'https://ti.grupoccima.com/calendariousu/eventos.php',
-    eventClick: function (calEvent, jsEvent, view) {
-      $('#tituloEvento').html(calEvent.title);
-      $('#txtDescripcion').val(calEvent.descripcion);
-      $('#txtId').val(calEvent.id);
-      $('#txtTitulo').val(calEvent.title);
-      $('#txtColor').val(calEvent.color);
-      $('#txtArea').val(calEvent.depto);
-
-      FechaHora = calEvent.start._i.split(" ");
-      $('#txtFecha').val(FechaHora[0]);
-      $('#txtHora').val(FechaHora[1]);
-
-      $("#modalEventos").modal();
-    }
-  });
+    });
+  }
 });
 
 </script>
@@ -336,13 +281,6 @@ $(document).ready(function () {
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-    integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous">
-  </script>
-  
   <script>
     var NuevoEvento;
 
