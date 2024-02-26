@@ -27,11 +27,13 @@ $mos = mysqli_fetch_row($res);
     <title>Modificar Registro</title>
 </head>
 
-<body>
-    <?php 
+<body style="background-color:#1E293B">
+   
+
+ <?php 
 switch($usuario){
-	case 'Yaressi Rodriguez':
-		case 'Jimena Alarcon':
+	case 'bjalarcon@grupoccima.com.mx':
+		case 'yrodriguez@grupoccima.com.mx':
             ?>
     <center>
         <div class="page-content">
@@ -85,7 +87,8 @@ switch($usuario){
     </center>
     <?php
             break;
-			case 'jose renovato':?>
+			case 'jarenovato@grupoccima.com.mx':
+	?>
     <center>
         <div class="page-content">
             <div class="container">
@@ -129,7 +132,13 @@ switch($usuario){
     </center>
     <?php
         break;
-        case 'isai garcia':
+        case 'jgarcia@grupoccima.com.mx':
+            case 'ddominguez@grupoccima.com.mx':
+                case 'jrlira@grupoccima.com.mx':
+                         case'mornelas@grupoccima.com.mx':
+                             case'jyanez@grupoccima.com.mx':
+                                 case'jmgarcia@grupoccima.com.mx':
+                                     case'jpbarcenas@grupoccima.com.mx':
             ?>
     <center>
 
@@ -175,15 +184,15 @@ switch($usuario){
         <div class="page-content">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-md-6 card py-2 px-3">
-                        <h2 class="text-center">Modificar registro</h2>
+                    <div class="col-12 col-md-6 card py-2 px-3" style="background-color:#F1F3F6">
+                        <h2 class="text-center" style="color:#021D49">Información del Ticket</h2>
                         <form action="edit.php" method="post" enctype="multipart/form-data">
                             <input type="hidden" class="form-control" name="id" id="id" aria-describedby="emailHelpId"
-                                value="<?php echo $mos[0] ?>" required>
+                                value="<?php echo $mos[0] ?>" disable>
                             <div class="mb-3">
                                 <label for="" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" id="email"
-                                    aria-describedby="emailHelpId" value="<?php echo $mos[1] ?>" required>
+                                    aria-describedby="emailHelpId" value="<?php echo $mos[1] ?>" disable>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Teléfono</label>
@@ -337,7 +346,6 @@ $result = mysqli_query($conexion, $selectinven);
         });
     });
 </script>
-
 
 </body>
 
